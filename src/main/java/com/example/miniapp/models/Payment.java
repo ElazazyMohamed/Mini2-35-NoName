@@ -2,6 +2,7 @@ package com.example.miniapp.models;
 
 import jakarta.persistence.*;
 
+@Entity
 public class Payment {
     // Attributes
     @Id
@@ -14,7 +15,7 @@ public class Payment {
 
     @OneToOne
     @JoinColumn(name = "trip_id")
-    private Trip trip_id;
+    private Trip trip;
 
     // Constructors
     public Payment() {} // Default
@@ -25,12 +26,12 @@ public class Payment {
         this.paymentStatus = paymentStatus;
     }
 
-    public Payment(Long payment_id, Double amount, String paymentMethod, Boolean paymentStatus, Trip trip_id) { // Full
+    public Payment(Long payment_id, Double amount, String paymentMethod, Boolean paymentStatus, Trip trip) { // Full
         this.payment_id = payment_id;
         this.amount = amount;
         this.paymentMethod = paymentMethod;
         this.paymentStatus = paymentStatus;
-        this.trip_id = trip_id;
+        this.trip = trip;
     }
 
     // Getters and Setters
@@ -58,11 +59,11 @@ public class Payment {
     public void setPaymentStatus(boolean paymentStatus) {
         this.paymentStatus = paymentStatus;
     }
-    public Trip getTrip_id() {
-        return trip_id;
+    public Trip getTrip() {
+        return trip;
     }
-    public void setTrip_id(Trip trip_id) {
-        this.trip_id = trip_id;
+    public void setTrip(Trip trip) {
+        this.trip = trip;
     }
 
 
