@@ -28,7 +28,7 @@ public class CaptainService {
         return captainRepository.findById(id).orElse(null);
     }
 
-    public List<Captain> getCaptainsByAvgRating(double ratingThreshold) {
+    public List<Captain> getCaptainsByRating(double ratingThreshold) {
         return captainRepository.findByAvgRatingScoreGreaterThanEqual(ratingThreshold);
     }
 

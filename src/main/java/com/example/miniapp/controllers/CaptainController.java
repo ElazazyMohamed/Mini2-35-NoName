@@ -35,7 +35,7 @@ public class CaptainController {
 
     @GetMapping("/filterByRating")
     public List<Captain> getCaptainsByRating(@RequestParam double ratingThreshold) {
-        return captainService.getCaptainsByAvgRating(ratingThreshold);
+        return captainService.getCaptainsByRating(ratingThreshold);
     }
 
     @GetMapping("/filterByLicenseNumber")
