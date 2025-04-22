@@ -36,7 +36,7 @@ public class PaymentService {
     //update payment
     public Payment updatePayment(Long id, Payment payment) {
         if (paymentRepository.existsById(id)) {
-            payment.setPayment_id(id);
+            payment.setId(id);
             return paymentRepository.save(payment);
         }
         return null;
