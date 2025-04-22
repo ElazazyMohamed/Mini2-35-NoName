@@ -30,12 +30,29 @@ public class TripService {
 
     public Trip updateTrip(Long id, Trip updated) {
         Trip existing = getTripById(id);
-        existing.setTripDate(updated.getTripDate());
-        existing.setOrigin(updated.getOrigin());
-        existing.setDestination(updated.getDestination());
-        existing.setTripCost(updated.getTripCost());
-        existing.setCaptain(updated.getCaptain());
-        existing.setCustomer(updated.getCustomer());
+
+        // Update basic properties
+        if (updated.getTripDate() != null) {
+            existing.setTripDate(updated.getTripDate());
+        }
+        if (updated.getOrigin() != null) {
+            existing.setOrigin(updated.getOrigin());
+        }
+        if (updated.getDestination() != null) {
+            existing.setDestination(updated.getDestination());
+        }
+        if (updated.getTripCost() != null) {
+            existing.setTripCost(updated.getTripCost());
+        }
+
+        // Only update relationships if they're not null in the update
+        if (updated.getCaptain() != null) {
+            existing.setCaptain(updated.getCaptain());
+        }
+        if (updated.getCustomer() != null) {
+            existing.setCustomer(updated.getCustomer());
+        }
+
         return tripRepository.save(existing);
     }
 
