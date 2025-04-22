@@ -8,7 +8,7 @@ public class Payment {
     // Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long payment_id;
+    private long id;
     private double amount;
     private String paymentMethod;
     private boolean paymentStatus;
@@ -27,8 +27,8 @@ public class Payment {
         this.paymentStatus = paymentStatus;
     }
 
-    public Payment(Long payment_id, Double amount, String paymentMethod, Boolean paymentStatus, Trip trip) { // Full
-        this.payment_id = payment_id;
+    public Payment(Long id, Double amount, String paymentMethod, Boolean paymentStatus, Trip trip) { // Full
+        this.id = id;
         this.amount = amount;
         this.paymentMethod = paymentMethod;
         this.paymentStatus = paymentStatus;
@@ -36,11 +36,11 @@ public class Payment {
     }
 
     // Getters and Setters
-    public long getPayment_id() {
-        return payment_id;
+    public long getId() {
+        return id;
     }
-    public void setPayment_id(long payment_id) {
-        this.payment_id = payment_id;
+    public void setId(long id) {
+        this.id = id;
     }
     public double getAmount() {
         return amount;
