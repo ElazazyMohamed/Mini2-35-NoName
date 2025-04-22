@@ -1,12 +1,10 @@
 package com.example.miniapp.controllers;
 
-import com.example.miniapp.models.Captain;
 import com.example.miniapp.models.Rating;
 import com.example.miniapp.services.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.PublicKey;
 import java.util.List;
 
 @RestController
@@ -42,7 +40,7 @@ public class RatingController {
     }
 
     @GetMapping("/findAboveScore")
-    public List<Rating> findRatingsAboveScore(@RequestParam Integer score) {
-        return ratingService.getRatingsAboveScore(score);
+    public List<Rating> findRatingsAboveScore(@RequestParam Integer minScore) {
+        return ratingService.getRatingsAboveScore(minScore);
     }
 }
