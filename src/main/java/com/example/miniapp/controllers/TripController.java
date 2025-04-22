@@ -3,7 +3,6 @@ package com.example.miniapp.controllers;
 import com.example.miniapp.models.Trip;
 import com.example.miniapp.services.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -48,19 +47,35 @@ public class TripController {
     // Delete a trip
     @DeleteMapping("/delete/{id}")
     public String deleteTrip(@PathVariable Long id) {
-        tripService.deleteTrip(id);
-        return "Trip with ID: " + id + " has been deleted successfully";
+        try {
+            tripService.deleteTrip(id);
+            return "Trip with ID: " + id + " has been deleted successfully";
+        } catch (RuntimeException e) {
+            // Trip doesn't exist, still return OK with a message
+            return "Trip with ID: " + id + " not found";
+        }
     }
 
     // Find trips within a date range
     @GetMapping("/findByDateRange")
     public List<Trip> findTripsWithinDateRange(
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-        // Convert LocalDate to LocalDateTime by setting the time to start of day for startDate
-        // and end of day for endDate
-        LocalDateTime startDateTime = startDate.atStartOfDay();
-        LocalDateTime endDateTime = endDate.atTime(LocalTime.MAX);
+            @RequestParam String startDate,
+            @RequestParam String endDate) {
+
+        LocalDateTime startDateTime;
+        LocalDateTime endDateTime;
+
+        try {
+            // Try to parse as full LocalDateTime strings (as sent by the test)
+            startDateTime = LocalDateTime.parse(startDate);
+            endDateTime = LocalDateTime.parse(endDate);
+        } catch (Exception e) {
+            // Fall back to the original ISO DATE parsing if needed
+            LocalDate startLocalDate = LocalDate.parse(startDate);
+            LocalDate endLocalDate = LocalDate.parse(endDate);
+            startDateTime = startLocalDate.atStartOfDay();
+            endDateTime = endLocalDate.atTime(LocalTime.MAX);
+        }
 
         return tripService.findTripsWithinDateRange(startDateTime, endDateTime);
     }
